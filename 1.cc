@@ -8,8 +8,9 @@ using namespace std;
 int main(int argc, char const *argv[])
 {
     string str = "bananabanana";
+	cin >> str;
 
-    assert(argc == 3);
+	assert(argc == 4);
 
     int L = atoi(argv[1]), N = atoi(argv[2]);
 
