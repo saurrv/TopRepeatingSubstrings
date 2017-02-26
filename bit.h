@@ -1,4 +1,4 @@
-void update(vector<int> bit, int i, int v)
+void update(vector<int>& bit, int i, int v)
 {
     while(i < bit.size())
     {
@@ -7,7 +7,7 @@ void update(vector<int> bit, int i, int v)
     }
 }
 
-int query(vector<int> bit, int i)
+int query(const vector<int>& bit, int i)
 {
     int r = 0;
     while(i > 0)

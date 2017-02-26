@@ -1,19 +1,15 @@
 #include "bit.h"
 
-vector<pair<int, pair<int, int>>> updateScores(const int n, const vector<int>& lft, const vector<int>& rght, const vector<int>& lcp, const vector<int>& suffixArray, const int L, const int N)
+void updateScores(const int n, const vector<int>& lft, const vector<int>& rght, const vector<int>& lcp, const vector<int>& suffixArray, const int L, const int N, vector<pair<int, pair<int, int>>>& out, set<pair<long long, int>>& scores, vector<int>& bit)
 {
-    vector<pair<int, pair<int, int>>> output;
-
-    set<pair<long long, int>> scores;
-
     for(int i = 0; i < n - 1; ++i)
     {
         scores.insert({(long long)(lft[i] - rght[i]) * lcp[i], i});
     }
 
-    vector<int> bit(n + 5, 0);
+    bit.resize(n + 5, 0);
 
-    for(; output.size() < N && !scores.empty(); )
+    for(; out.size() < N && !scores.empty(); )
     {
         int i = scores.begin() -> second;
         scores.erase(scores.begin());
@@ -35,7 +31,7 @@ vector<pair<int, pair<int, int>>> updateScores(const int n, const vector<int>& l
         }
         if(!add)
             continue;*/
-        output.push_back({suffixArray[i], {lcp[i], rght[i] - lft[i]}});
+        out.push_back({suffixArray[i], {lcp[i], rght[i] - lft[i]}});
 
         int l = lft[i], r = rght[i];
         if(!l)
@@ -43,6 +39,5 @@ vector<pair<int, pair<int, int>>> updateScores(const int n, const vector<int>& l
         update(bit, l, 1);
         update(bit, r, -1);
     }
-
-    return output;
+    bit.clear(), scores.clear();
 }

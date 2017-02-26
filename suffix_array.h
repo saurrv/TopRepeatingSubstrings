@@ -1,5 +1,5 @@
 //copied from https://github.com/saurv4u/Algorithm-Library
-
+#include<math.h>
 struct node
 {
     int index;
@@ -14,11 +14,10 @@ struct node
     }
 };
 
-vector<int> buildSuffixArray(const int n, const string& str, vector<int>& pos)
+void buildSuffixArray(const int n, const string& str, vector<int>& pos, vector<int>& suffixArray, vector<node>& arr, vector<vector<int>>& last)
 {
-    vector<vector<int>> last(22, vector<int> (n));
-    vector<node> arr(n);
-    vector<int> suffixArray(n);
+    pos.resize(n), suffixArray.resize(n), arr.resize(n);
+    last.resize(ceil(log2(n)) + 5, vector<int> (n));
 
     for(int i = 0; i < n; ++i)
         last[0][i] = str[i] -'a';
@@ -49,5 +48,5 @@ vector<int> buildSuffixArray(const int n, const string& str, vector<int>& pos)
         suffixArray[last[step][i]] = i;
         pos[i] = last[step][i];
     }
-    return suffixArray;
+    arr.clear(), last.clear();
 }

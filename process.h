@@ -3,15 +3,25 @@
 #include "stack.h"
 #include "scoring.h"
 
-vector<pair<int, pair<int, int>>> process(const string& str, const int L, const int N)
+vector<int> lcp, pos, lft, rght, suffixArray, bit;
+vector<node> arr;
+set<pair<long long, int>> scores;
+stack<int> stk;
+vector<vector<int>> last;
+
+void process(const string& str, const int L, const int N, vector<pair<int, pair<int, int>>>& out)
 {
+    lcp.clear(), pos.clear(), lft.clear(), rght.clear(), suffixArray.clear(), bit.clear(), arr.clear(), scores.clear(), last.clear();
+
     int n = str.size();
-    vector<int> pos(n), lft(n - 1), rght(n - 1);
-    vector<int> suffixArray = buildSuffixArray(n, str, pos);
-    vector<int> lcp = buildLCP(n, str, suffixArray, pos);
 
-    computeLeft(n, lcp, lft);
-    computeRight(n, lcp, rght);
+    buildSuffixArray(n, str, pos, suffixArray, arr, last);
+    buildLCP(n, str, suffixArray, pos, lcp);
+    pos.clear();
 
-    return updateScores(n, lft, rght, lcp, suffixArray, L, N);
+    computeLeft(n, lcp, lft, stk);
+    computeRight(n, lcp, rght, stk);
+
+    updateScores(n, lft, rght, lcp, suffixArray, L, N, out, scores, bit);
+    lcp.clear(), suffixArray.clear(), lft.clear(), rght.clear();
 }

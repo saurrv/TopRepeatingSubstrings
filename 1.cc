@@ -5,16 +5,18 @@ using namespace std;
 
 #include "process.h"
 
+string str;
+vector<pair<int, pair<int, int>>> out;
+
 int main(int argc, char const *argv[])
 {
-    string str = "bananabanana";
 	cin >> str;
 
 	assert(argc == 4);
 
     int L = atoi(argv[1]), N = atoi(argv[2]);
 
-    vector<pair<int, pair<int, int>>> out = process(str, L, N);
+    process(str, L, N, out);
 
     for(auto p : out)
     {

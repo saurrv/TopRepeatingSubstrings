@@ -1,8 +1,8 @@
 //copied from https://github.com/saurv4u/Algorithm-Library
 
-vector<int> buildLCP(const int n, const string& str, const vector<int>& suffixArray, const vector<int>& pos)
+void buildLCP(const int n, const string& str, const vector<int>& suffixArray, const vector<int>& pos, vector<int>& lcp)
 {
-    vector<int> lcp(n - 1);
+    lcp.resize(n - 1);
     for(int i = 0, k = 0; i < n; ++i)
     {
         if(pos[i] == n - 1)
@@ -16,5 +16,4 @@ vector<int> buildLCP(const int n, const string& str, const vector<int>& suffixAr
         lcp[pos[i]] = k;
         (k > 0) ? --k : 0;
     }
-    return lcp;
 }
